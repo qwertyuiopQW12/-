@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>تلجرام السديم</title>
+  <style>
+    /* شاشة الترحيب */
+    #splash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background-color: #0EA345;
+      color: white;
+      z-index: 1000;
+      transition: opacity 0.5s;
+    }
+
+    #splash .logo {
+      width: 120px;
+      height: 120px;
+      background-color: #0EA345;
+      border-radius: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #splash .logo img {
+      width: 100px;
+      height: 100px;
+      object-fit: contain;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #0EA345;
+      color: white;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .header {
+      margin-top: 60px;
+    }
+
+    .logo {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+      background-color: #0EA345;
+      border-radius: 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .app-name {
+      font-size: 24px;
+      margin: 10px 0 30px;
+    }
+
+    .slides {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      padding: 0 30px;
+      box-sizing: border-box;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .slide.active {
+      opacity: 1;
+    }
+
+    .slide h2 {
+      font-size: 22px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slide p {
+      font-size: 16px;
+      line-height: 1.5;
+    }
+
+    .divider {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      margin: 20px 30px;
+    }
+
+    .dots {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      margin: 0 4px;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: white;
+    }
+
+    .footer {
+      margin-bottom: 40px;
+    }
+
+    .language {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .start-button {
+      background-color: white;
+      color: #0088cc;
+      border: none;
+      border-radius: 8px;
+      padding: 14px 0;
+      width: 80%;
+      max-width: 300px;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0 auto;
+      cursor: pointer;
+    }
+
+    .telegram-text {
+      position: absolute;
+      top: 30px;
+      right: 30px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      display: inline-block;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    .icon-fast {
+      background-image: url('data:image/svg+xml;utf8,<svg fill=\"white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M13.5 5.5c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm4.45 8.37l-3.03 3.03c-.39.39-1.02.39-1.42 0L10 14.5l-7.37 7.38c-.39.39-1.02.39-1.41 0-.39-.39-.39-1.02 0-1.41L8.5 13l-2.7-2.7c-.39-.39-.39-1.02 0-1.41.39-.39 1.02-.39 1.41 0l2.7 2.7 3.5-3.5c.39-.39 1.02-.39 1.41 0l3.5 3.5 3.53-3.54c.39-.39 1.02-.39 1.41 0 .39.39.39 1.02 0 1.41l-3.53 3.54z\"/></svg>');
+    }
+
+    .icon-free {
+      background-image: url('data:image/svg+xml;utf8,<svg fill=\"white\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\"><path d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z\"/></svg>');
+    }
+  </style>
+  
+  <!-- في كل صفحة HTML -->
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#25D366" />
+  
+  
+</head>
+<body>
+  <!-- شاشة الترحيب -->
+  <div id="splash">
+    <div class="logo">
+      <img src="false-5122.png" alt="تلجرام السديم" />
+    </div>
+    <div class="app-name">تلجرام السديم</div>
+  </div>
+
+  <!-- المحتوى الرئيسي -->
+  <div id="container" style="display:none">
+    <div class="header">
+      <div class="logo">
+        <img src="false-512.png" alt="تلجرام السديم" />
+      </div>
+      <div class="app-name">تلجرام السديم</div>
+    </div>
+
+    <div class="slides">
+      <div class="slide active">
+        <h2><span class="icon icon-fast"></span>سريع</h2>
+        <p>تلجرام السديم يوصل الرسائل أسرع من أي تطبيق آخر.</p>
+      </div>
+      <div class="slide">
+        <h2><span class="icon icon-free"></span>مجاني</h2>
+        <p>تلجرام السديم يقدم تخزينًا سحابيًا مجانيًا غير محدود للمحادثات والوسائط.</p>
+      </div>
+      <div class="slide">
+        <h2><span class="icon icon-powerful"></span>قوي</h2>
+        <p>لا يفرض تلجرام السديم قيوداً على حجم وسائطك ومحادثاتك.</p>
+      </div>
+      <div class="slide">
+        <h2><span class="icon icon-secure"></span>آمن</h2>
+        <p>يحمي تلجرام السديم رسائلك من هجمات المخترقين.</p>
+      </div>
+      <div class="slide">
+        <h2><span class="icon icon-cloud"></span>تخزين سحابي</h2>
+        <p>تلجرام السديم يتيح لك الوصول لرسائلك من أجهزة متعددة.</p>
+      </div>
+    </div>
+
+    <div class="dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="footer">
+      <div class="language">Continue in English</div>
+      <button class="start-button">بدء المراسلة</button>
+    </div>
+  </div>
+
+  <script>
+    // شاشة الترحيب
+    window.addEventListener('load', function () {
+      setTimeout(() => {
+        document.getElementById('splash').style.opacity = '0';
+        setTimeout(() => {
+          document.getElementById('splash').style.display = 'none';
+          document.getElementById('container').style.display = 'block';
+        }, 500);
+      }, 5000);
+    });
+
+    // تحريك الشرائح تلقائيًا
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slide');
+    const dots = document.querySelectorAll('.dot');
+
+    function showSlide(index) {
+      slides.forEach((slide, i) => {
+        slide.classList.remove('active');
+        dots[i]?.classList.remove('active');
+      });
+      slides[index].classList.add('active');
+      dots[index]?.classList.add('active');
+      currentSlide = index;
+    }
+
+    function nextSlide() {
+      let nextIndex = (currentSlide + 1) % slides.length;
+      showSlide(nextIndex);
+    }
+
+    setInterval(nextSlide, 3000);
+
+    document.querySelector('.start-button').addEventListener('click', function () {
+      window.location.href = "index1.html";
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => showSlide(index));
+    });
+  </script>
+</body>
+</html>
